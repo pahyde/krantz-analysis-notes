@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amsthm}
+
+\setlength{\parindent}{0mm}
+
+\begin{document}
+
+\title{Review - Chapter 4: Basic Topology}
+\author{Parker Hyde}
+\date{\today}
+\maketitle
+
+\newtheorem{theorem}{Theorem}
+
+\section*{4.1 Open and Closed Sets}
+
+\subsection*{Interval notation}
+For real numbers \( a \le b \), we define
+
+ \begin{align*}
+     (a,b) &= \{x \in R : a < x < b\}\\
+     [a,b] &= \{x \in R : a \le x \le b\} \\
+     [a,b) &= \{x \in R : a \le x < b\} \\
+     (a,b] &= {...}
+\end{align*}
+
+These are simplest open, closed, and half-open (half-closed, clopen) sets
+everyone knows.
+
+\newtheorem{definition}{Definition}
+\begin{definition}[open sets]
+    A set \( U \) is \textbf{open} if \( \forall x \in U \) we 
+    can find an \( \epsilon > 0 \) so that  \( N_\epsilon(x) \subset U \) 
+\end{definition}
+
+Basically the set is open if all points are "padded" by other points in set. 
+For any \( x \in (0, 1) \) there's always an infintude of points surrounding that  \( x \).
+
+\subsection*{How to prove a set \( U \) is open}
+
+The general strategy is to fix some \( x \in U \) and then find an \( \epsilon \) 
+so that  \( N_\epsilon(x) \subset U\).
+
+\newtheorem{exmp}{Example}
+\begin{exmp}
+    Show that the set \( U = \{x \in R : |x - m| < d \}\) is open
+\end{exmp}
+
+We need to find the appropriate \( \epsilon \). \\
+Start by fixing \( x \in U \). If \( |x - m| < d \) then 
+\( d - |x - m| > 0 \). This just says that the maximum allowed distance \( d \) 
+is greater than whatever distance  \( x \) actually is from \( m \). \\
+So lets pick this difference for \( \epsilon \). We set \( \epsilon = d - |x - m| \).  \\
+Whatever distance \( x \) is from  \( m \), adding less than \( \epsilon \)
+distance will never take  \( x \) more than distance \( d \) from m.
+So now we just use this info to prove it.
+
+\begin{proof}
+    Fix \( x \in U \) and set \( \epsilon = d - |x-m| > 0\).
+    Let \( t \in N_\epsilon(x) \). Then \(|t-x| < \epsilon\) and 
+    \begin{align*}
+        |t-m| &= |(t-x)+ (x-m)| \\
+              &\le |t-x| + |x-m|  \\
+              &< d - |x-m| + |x-m| \\
+              &= d \\
+              &\implies t \in U
+    \end{align*} 
+    Hence \( N_\epsilon(x) \subset U \).  Get fucked, we done.
+\end{proof}
+Moving on.. \\
+Things we are about to cover: 
+\medbreak
+1) The (possibly infinite) union of open sets is \( \rightarrow \) open \\
+2) The finite intersection of open sets is \( \rightarrow \) open. Not necessarily true for infinite (think \( (-\frac{1}{j}, \frac{1}{j}) \)). \\
+3) The (possible infinite) intersection of closed sets is \( \rightarrow \) closed \\
+4) The finite union of of closed sets is \( \rightarrow \) closed.
+\medbreak
+Infinite intersections do weird things to open sets. \\
+Infinite unions do weird things to closed sets.
+
+\pagebreak
+\begin{theorem}
+    If \( U_\alpha \) are open sets (possibly denumerable or uncountable), then
+    \[
+        U = \bigcup_{\alpha \in A} U_\alpha
+    \] 
+    is open.
+\end{theorem}
+How do we go about proving this. Again for any \( x \in U \) we need to produce
+\( N_\epsilon(x) \subset U \). In this case we can just borrow an \( N_\epsilon \) 
+whatever  \( U_\alpha \)  our \( x \) comes from.
+\begin{proof}
+    Fix \( x \in U \). Then \( x \in U_\alpha \) for some \( \alpha \).
+    \( U_\alpha \) is open so there exists an \( N_\epsilon(x) \subset U_\alpha \subset U \).\\
+    \( U \) is open. come get some little bitch.
+\end{proof}
+
+\begin{theorem}
+    \( U_1, U_2, U_3, ..., U_k \) are open sets, then 
+    \[
+        V = \bigcap_{j=1}^k U_j
+    \] 
+    is open.
+\end{theorem}
+
+This time we can't just take some \( N_\epsilon(x) \) from \( U_j \), assume it'll be a subset of
+\( V \) and call it a day. The intersection with other sets may subtract away some of our 
+chosen  \( N_\epsilon(x) \). We have to pick the 'right' \( N_\epsilon(x) \).
+\begin{proof}
+    Fix \( x \in V \). Then \( x \in U_j\), \( \forall j = 1, 2, ..., k \).
+    Each of these sets are open so they all have corresponding 
+    neighborhoods \( N_{\epsilon_j}(x) \). Let \( \epsilon = \text{min}\{ \epsilon_j : j = 1, 2, ..., k \} \). \\
+    Then  \( N_\epsilon(x) \subset U_j\) for \( j = 1, 2, ..., k \)  
+    \[ \implies N_\epsilon(x) \subset V  \].
+\end{proof}
+
+Again this is not necessarily true. For a situation like 
+\[
+    \bigcap_{j=1}^\infty = (- \frac{1}{j}, \frac{1}{j}) \quad \text{or even} \quad
+    \bigcap_{j=1}^\infty = (0, 1 + \frac{1}{j})
+\] 
+we get closed and clopen sets respectively. \( 1 \) is in the second set but a
+suitable \( N_\epsilon(1) \) doesn't exist.
+
+\begin{theorem}
+    \( U \subset R \) is a nonempty open set. Then
+    for either finitiely many or countably many (\( k = \infty \)) pairwise disjoint
+    open intervals \( I_j \).
+    \[
+        U = \bigcup_{j=1}^k I_j 
+    \] 
+\end{theorem}
+\begin{proof}
+    This is the proof by equivalence relation. Setting \( a \cong b \) if \( (a,b) \subset U \)
+    creates a partion with equivalence classes \( I_\alpha \). Being equivalence classes 
+    means their union equals \( U \). We just need to show the classes are open intervals.
+    Clearly they're intervals. Let \( x \in I_\alpha \). Then  \( x \in U \) so we have a
+    \( N_\epsilon(x) \). We constructed the equivalence relation so that 
+    \( N_\epsilon(x) \subset I_\alpha \). All the points in \( N_\epsilon(x) \) would
+    have to be in \( I_\alpha \).
+\end{proof}
+
+Basically, open intervals are the building blocks of open sets. If you have an open set, you
+can build it from a union of open intervals. This is trivial for open sets that are 
+intervals themselves. 
+\smallbreak
+The contrapositive is interesting here. If you can't set \( U \) equal to a union of open 
+intervals then \( U \) isn't an open set.
+
+\pagebreak
+\subsection*{Closed Sets}
+
+\begin{definition}
+    \( F \subset R \) is closed in the complement \( R \setminus F \) is open.
+\end{definition}
+
+Immediately we should notice the potential contradiction. The sets \( \emptyset \)
+and \( R \) are both open by definition (vacuously true for \( \emptyset \)). 
+They are mutual complements so they sould both also be closed. In fact
+they're both closed and open.. At least that's what I read on math stack.
+
+\begin{exmp}
+    The set \( B = \{\frac{1}{j} : j = 1, 2, 3, ...\} \cup \{0\}\) is closed because it's 
+    complement is the union of open sets given by
+    \[
+        (-\infty, 0) \ \cup  \ \bigcup_{j=1}^\infty (\frac{1}{j+1}, \frac{1}{j}) \ \cup  \ (1, \infty)
+    \]
+\end{exmp}
+
+\begin{theorem}
+    
+\end{theorem}
+
+
+\end{document}

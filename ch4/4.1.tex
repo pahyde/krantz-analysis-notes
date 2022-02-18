@@ -153,7 +153,7 @@ intervals then \( U \) isn't an open set.
 \subsection*{Closed Sets}
 
 \begin{definition}
-    \( F \subset R \) is closed in the complement \( R \setminus F \) is open.
+    \( F \subset R \) is closed if the complement \( R \setminus F \) is open.
 \end{definition}
 
 Immediately we should notice the potential contradiction. The sets \( \emptyset \)
@@ -170,8 +170,37 @@ they're both closed and open.. At least that's what I read on math stack.
 \end{exmp}
 
 \begin{theorem}
-    
+    If \( E_\alpha \) are closed sets (possibly uncountably many), then
+     \[
+         E = \bigcap_{\alpha \in A} E_\alpha
+    \] 
+    is closed.
 \end{theorem}
+
+Translating this using the definition of closed sets, we get a pretty quick proof:
+\begin{proof}
+If \( E_\alpha \) are closed sets, then \( (E_\alpha)^c \) are open sets and
+\begin{gather}
+    E^c = (\bigcap_{\alpha \in A} E_\alpha)^c = \bigcup_{\alpha \in A} (E_\alpha)^c 
+    \text{ is open } \implies E \text{ is closed }
+\end{gather}
+\end{proof}
+
+
+Here's another way. And pay attention, the subtle difference here is a little pedantic.
+In the proof above we showed that \( E^c \) is open so that  \( E \) has to be closed.
+This time we show that \( E \) is the complement of something that is open.. So yeah \( E \) 
+has to be closed.
+\begin{proof}
+    \[ 
+        E = \bigcap_{\alpha \in A} E_\alpha = \bigcap_{\alpha \in A} (E_\alpha^c)^c 
+        = (\bigcup_{\alpha \in A} E_\alpha^c)^c \implies E \text{ is closed }
+    \]
+    because \(\bigcup_{\alpha \in A} E_\alpha^c\) is open.
+\end{proof}
+
+
+
 
 
 \end{document}

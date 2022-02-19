@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amsthm}
+
+\setlength{\parindent}{0mm}
+
+\begin{document}
+
+\title{Review - Chapter 4: Basic Topology}
+\author{Parker Hyde}
+\date{\today}
+\maketitle
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{proposition}{Proposition}
+
+\section*{4.2 Points in Open and Closed Sets}
+
+The Krantz book uses the terms \textit{'limit point'} and \textit{'accumulation point'}
+interchangebly. Let's define these terms and prove they're the same thing.
+
+
+\begin{definition}[limit point]
+    A point \( x \in R \) is a \textbf{limit point} of a set \( S \subset R \) 
+    if \( \forall \epsilon > 0\),  \( N_\epsilon(x) \) contains an element of 
+     \( S \) other than \( x \).
+\end{definition}
+\begin{definition}[accumulation point]
+    A point \( x \in R \) is a \textbf{accumulation point} of a set \( S \subset R \) 
+    if \( \forall \epsilon > 0\),  \( N_\epsilon(x) \) contains infinitely many elements 
+    of \( S \).
+\end{definition}
+
+Basically we consider every \( N_\epsilon(x) \) to determine what kind of point
+\( x \) is for a set \( S \subset R \).
+\begin{align*}
+    1) & \text{ if every } N_\epsilon(x) \text{ contains a point other than } x \text{ in } S \rightarrow x \text{ is a limit point}\\
+    2) & \text{ if every } N_\epsilon(x) \text{ contains an infinite number of points} \text{ in } S \rightarrow x \text{ is an accumulation point}
+\end{align*}
+
+\begin{proposition}
+   A point \( x \in S \subset R \) is a limit point of \( S \) iff it's an
+   accumulation point of \( S \).
+\end{proposition}
+
+Proving accumulation point \( \implies \) limit point seems pretty simple. 
+Any \( N_\epsilon(x) \) of an accumulation point contains infinitely many points in  \( S \). 
+In particular it contains at least 2 points in \( S \). So it contains a point in \( S \)
+other than  \( x \).
+\medbreak
+Alright lets try the other direction. We have some \( N_\epsilon(x) \) for a limit point
+\( x \) and we need to show it satisfies the requirements for an accumulation point. 
+\( x \) is a limit point so \( N_\epsilon(x) \) contains some  \( s_1 \ne x \in S\).
+Cool, we have one point. Infinitely many to go. But this is actually pretty easy right?
+We can just choose \( s_2 \ne x \in S \) from a smaller \( N_{\epsilon^\prime}(x) \) 
+where \( \epsilon^\prime \) is set to \( |s_1 - x| \). We can do this infinitely many times 
+and always get a new \( s_n \) becaues \( x \) is a limit point. Thus we get an infinite number
+of \( s_1 \ne x, s_2 \ne x, ... \in S \) so \( x \) is an accumulation point. 
+\smallbreak
+Other sources have a variety of definitions for these terms. So this result just 
+follows from our particular definitions. Moving on...
+
+\subsection*{boundary points, interior points, isolated points}
+
+\begin{definition}[boundary point]
+    \( b \in R \) is a \textbf{boundary point} of \( S \subset R \) if every \( N_\epsilon(b) \)
+    contains points in \( S \) and points in \( R \setminus S \).
+    We denote the set of boundary points for \( S \) as \( \partial S \).
+\end{definition}
+
+For the most part, boundary points are what we expect them to be. You can perturb a boundary
+point in the appropriate direction and it will no longer be in \( S \).
+\medbreak
+Boundary points may or may not be in the set \( S \). We'll see in a second that 
+\smallbreak
+1) closed sets - contain all their boundary points \\
+2) open sets - contain none of their boundary points
+\medbreak
+Oh this is pretty interesting. The boundary set of \( Q \),  \( \partial Q \), is the 
+entire real line. This makes sense because any neighborhood around a rational 
+contains infinitely many rational and irrational numbers.
+
+\pagebreak
+
+\begin{definition}[interior point]
+    A point \( s \in S \subset R \) is an \textbf{interior point} of \( S \) if
+    there is an \( N_\epsilon(s) \subset S \).
+\end{definition}
+
+From this definition we see that open sets require \textit{all} points to interior points.
+
+\begin{definition}[isolated point]
+    A point \( t \in S \subset R \) is an \textbf{isolated point} if there is an
+    \( N_\epsilon(t) \) such that \( N_\epsilon(t) \cap S = \{t\} \)
+\end{definition}
+
+\begin{proposition}
+    Each point of \( S \subset R \) is either an interior point or a boundary point.
+\end{proposition}
+
+\begin{proof}
+    let \( x \in S \). If \( x \) is an interior point then we're done. Suppose \( x \) 
+    is not an interior point. Then all \( N_\epsilon(x) \) contain points in \( R \setminus S \).
+    Also  \( N_\epsilon(x) \) contains \( x \in S \). So \( x \) contains points in both 
+    \( S \) and \( R \setminus S \). \( x \) is a boundary point.
+\end{proof}
+
+Quick remark. interior points are a special class of boundary points. Also accumulation 
+point can either be interior or boundary points but never isolated.
+
+\begin{proposition}
+    The boundary \( \partial S \) of a set \( S \subset R \) is also the boundary of
+    \( R \setminus S \).
+\end{proposition}
+
+\begin{proof}
+    \begin{align*}
+        b \in \partial S  &\iff \text{there exsits }  N_\epsilon(b) \text{ containing points in } S \text{ and  } R \setminus S \\
+                          &\iff \text{there exsits }  N_\epsilon(b) \text{ containing points in } R \setminus S \text{ and  } S \\
+                            &\iff b \in \partial R \setminus S
+    \end{align*}
+\end{proof}
+
+This is trivial if you think about it. The definition of \( \partial A \) and \( \partial A^c \)
+is identical no matter the set \( A \).
+
+\end{document}

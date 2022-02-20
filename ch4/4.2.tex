@@ -16,6 +16,9 @@
 \newtheorem{definition}{Definition}
 \newtheorem{exmp}{Example}
 \newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
 
 \section*{4.2 Points in Open and Closed Sets}
 
@@ -108,7 +111,7 @@ From this definition we see that open sets require \textit{all} points to interi
     \( S \) and \( R \setminus S \). \( x \) is a boundary point.
 \end{proof}
 
-Quick remark. interior points are a special class of boundary points. Also accumulation 
+Quick remark. Isolated points are a special class of boundary points. Also accumulation 
 point can either be interior or boundary points but never isolated.
 
 \begin{proposition}
@@ -116,15 +119,123 @@ point can either be interior or boundary points but never isolated.
     \( R \setminus S \).
 \end{proposition}
 
+
 \begin{proof}
     \begin{align*}
-        b \in \partial S  &\iff \text{there exsits }  N_\epsilon(b) \text{ containing points in } S \text{ and  } R \setminus S \\
-                          &\iff \text{there exsits }  N_\epsilon(b) \text{ containing points in } R \setminus S \text{ and  } S \\
+        b \in \partial S  &\iff \text{every }  N_\epsilon(b) \text{ contains points of } S \text{ and  } R \setminus S \\
+                          &\iff \text{every }  N_\epsilon(b) \text{ contains points of } R \setminus S \text{ and  } S \\
+                          &\iff \text{every }  N_\epsilon(b) \text{ contains points of } R \setminus S \text{ and  }  R \setminus (R \setminus S)\\
                             &\iff b \in \partial R \setminus S
     \end{align*}
 \end{proof}
 
-This is trivial if you think about it. The definition of \( \partial A \) and \( \partial A^c \)
-is identical no matter the set \( A \).
+This proof is trivial if you think about it. Let two sets \( A \) and \( B \) be complements
+in the universe of \( R \). Then a point \( b \) is a boundary point of \( A \) if all
+\( N_\epsilon(b) \) contain points in \( A \) and \( B \). But this is the same
+criteria for boundary points in  \( B \).
+
+\begin{theorem}
+    A closed set contains all it's boundary points.
+\end{theorem}
+
+So a given a boundary point \( b \) in a closed set \( S \), we need to show \( b \in S \).
+Closed sets are defined in terms of open sets so let's consider the alternative. 
+Suppose \( b \) is in the open set \( R \setminus S \). Ok well clearly that can't
+happen because then there would exist some \( N_\epsilon(b) \) containing only
+points in \( R \setminus S \). This contradicts the definition of a 
+boundary point so b has to be in the closed set \( S \).
+\medbreak
+The krantz book gives a direct proof using a fact about accumulation points. 
+We'll state that fact as a lemma and then give their proof below.
+
+\begin{lemma}
+    A closed set \( S \subset R \) contains all it's accumulation points.
+\end{lemma}
+
+The proof for this should sound familiar.\\ We know that every neighborhood of an
+accumulation point \( s \in R \) for a set \( S \) contains infinitely many points in \( S \). Placing \( s \)
+in the open set \( R \setminus S \) produces a neighborhood that contradicts this. \\
+Now for the main proof.
+
+\begin{proof}[proof (Theorem 1)]
+    Let \( b \in R \) be a boundary point for a set \( S \subset R \). If \( b \) is 
+    an accumulation point then \( b \in S \) by Lemma 1. If it's not, then it's not
+    a limit point so there's an \( N_\epsilon(b) \) that doesn't contain any points
+    of \( S \) distinct from \( b \). In other words, \( N_\epsilon(b) \cap S = \{b\} \) or 
+    \( N_\epsilon(b) \cap S = \emptyset \). \( b \) is a boundary point so
+    \( N_\epsilon(b)  \) must contain at least one element of \( S \). Thus
+    \( N_\epsilon(b) \cap S = \{b\} \) and we conclude \( b \in S \).
+\end{proof}
+
+In short, if \( b \) is an accumulation point, then it's in \( S \). If not, then 
+it's isolated by a neighborhood of points in \( R \setminus S \). But \( b \) is a boundary
+so we have to have some \( x \in S \) in that neighborhood. That can only happen
+if \( x = b \). This also tells us that \( b \) is an isolated point.
+
+\begin{corollary}
+    An open set contains none of it's boundary points.
+\end{corollary}
+\begin{proof}
+   \( b \) is the boundary of an open set \( S \implies \) it's the
+   boundary of the closed set \( S^c \).\\ Thus \( b \in S^c \implies b \notin S \).  
+\end{proof}
+
+\begin{theorem}
+    If \( b \) is a boundary for \( S \subset R \),
+    then \( b \) is either exclusively \\
+1) an accumulation point\\
+2) an isolated point
+\end{theorem}
+
+\pagebreak
+
+\begin{definition}
+    \( S \subset R \) is bounded if \( \exists M > 0\) such that \( |s| \le M \  \forall s \in S \).
+\end{definition}
+
+\begin{theorem}[Bolzano Weierstrass] 
+    Every bounded, infinite \( S \subset R \) has an accumulation point.
+\end{theorem}
+
+It's critical that \( S \) is infinite. This gaurantees the exsitence of an infinite sequence
+of distinct elements from \( S \). If the sequence
+converges, then it's limit will be the accumulation point we're looking for.
+
+\begin{proof}[proof]
+    Let \( S \subset R \) be bounded and infinite. Then there is an infinite sequence 
+    \( a_j \) of distince elements of \( S \). By another B-W theorem, this means
+    there is a subsequence \( a_{j_k} \) converging to limit  \( \alpha \) 
+    (because \( a_j \) is bounded). Thus \( S \) has an accumulation point \( \alpha \).
+\end{proof}
+
+
+\begin{proposition}
+    Let \( S \subset R \). Then
+    \[
+        \text{ \( S \) is closed \( \iff \) every 
+        Cauchy sequence \( \{ a_j\} \subset S \) converges to an element of \( S \).}
+    \]
+\end{proposition}
+
+I'm too lazy to write the proof. Basically if \(  S \) is closed and \( a_j \) is a
+Cauchy (convergent) sequence, then \( a_j \) can't converge to something in \( R \setminus S \).
+We can produce an \( \epsilon \)-neighborhood which isolates the limit point.\\
+On the other hand, if \( S \) is open then there's a Cauchy sequence that converges outside
+of S. Its any sequece that converges to a boundary point \( b \) of \( S \).
+
+\begin{remark}
+    Proposition 4 is vacuously true if \( S \) is finite.
+\end{remark}
+
+\begin{corollary}
+    Let \( S \subset R \) be nonempty, closed, and bounded. If \( a_j \) is any 
+    sequence in \( S \), then there is a cauchy subsequence \( a_{j_k} \) that converges
+    to \( \alpha \in S \).
+\end{corollary}
+\begin{proof}
+    Suppose there is a sequence \( a_j \) in \( S \). Then  there is a Cauchy
+    subsequence \( a_{j_k} \) converging to \( \alpha \in R \) because \( S \) is bounded.
+    By Proposition 4, we conclude \( \alpha \in S \) because \( S \) is closed.
+\end{proof} 
 
 \end{document}

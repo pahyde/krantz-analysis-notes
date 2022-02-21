@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amsthm}
+
+\setlength{\parindent}{0mm}
+
+\begin{document}
+
+\title{Review - Chapter 4: Basic Topology}
+\author{Parker Hyde}
+\date{\today}
+\maketitle
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\section*{4.5 Connected and Disconnected Sets}
+
+Different books give different definitions for connected and disconnected sets.
+Abbott and Rudin both formulate a definition in terms of \textit{'separated'}
+sets and Krantz gives a 3 part definition in terms of open sets.
+As usual we'll give these definitions and then feel the need to prove their
+equivalence.
+\smallbreak
+
+First, the Abbott/Rudin defition. We'll use the notation \( \overline{A} \) to denote
+the closure of \( A \). 
+
+\begin{definition}[Disconnected Sets - A/R]
+    Two nonempty sets \( A,B \subset R \) are separated if \( \overline{A} \cap B = \emptyset \) 
+    and \( A \cap \overline{B} = \emptyset \). A set \( E \subset R \) is \textbf{disconnected} if 
+    it can be written as the union \( E = A \cup B \) of separated sets \( A \) and \( B \).
+\end{definition}
+
+Krantz is harder to parse.
+
+\begin{definition}[Disconnected Sets - Krantz]
+    A set \( S \subset R \) is \textbf{disconnected} if it's possible to find open sets
+    \( U \) and \( V \) such that 
+    \begin{align}
+        &U \cap S \ne \emptyset, V \cap S \ne \emptyset \\
+        &(U \cap S) \cap (V \cap S) = \emptyset \\
+        &S = (U \cap S)  \cup (V \cap S)
+    \end{align}
+\end{definition}
+
+Intuitively, the Krantz definition is a bit more transparent if we substitute \( A = U \cap S \)
+and  \( B = V \cap S \). This gives the simpler looking requirements
+\begin{align*}
+        &A \ne \emptyset, B \ne \emptyset\\
+        &A \cap B = \emptyset\\
+        &S = A \cup B.
+\end{align*}
+So basically we need disjoint nonempty sets \( A,B \subset S \) whose union gives \( S \).
+But we must also recall that \( A = U \cap S \) and \( B = V \cap S \) for open sets \( U \) 
+and \( V \). Thus, there must be at least one point 'between' \( A \) and \( B \). This 
+is clear if \( A \) and \( B \) end up both being open sets. If one of them is closed, say \( B \),
+then it was formed by an open set \( V \) with \( B \subset V \). \( A \) and \( B \) cannot share
+some boundary point \( b \in B \). This would require that \( A \cap (B = V \cap S) \ne \emptyset \)
+because \( V \) would necessarily contain points in \( A \).
+
+\begin{proof}
+
+\end{proof}
+
+
+\end{document}

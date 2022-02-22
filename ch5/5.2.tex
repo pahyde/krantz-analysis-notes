@@ -1,0 +1,152 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amsthm}
+
+\setlength{\parindent}{0mm}
+
+\begin{document}
+
+\title{Review - Chapter 5: Limits and Continuity of Functions}
+\author{Parker Hyde}
+\date{\today}
+\maketitle
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+\section*{5.2 Continuous Functions}
+
+\begin{definition}
+    Let \( f \) be a real-valued function with domain \( E \subset R \). Fix
+    an accumulation point of \( E \), \( p \in E \).
+    Then \( f\) is continuous at \( p \) if 
+    \[
+        \lim_{x \to p} f(x) = f(p)
+    \] 
+\end{definition}
+
+Notice that we need \( p \) in the domain \( E \) to even consider continuity.
+
+\begin{exmp}
+    The function 
+    \[
+        h(x) = \begin{cases}
+            sin(\frac{1}{x}) & x \ne 0 \\
+            1 & x = 0
+               \end{cases}
+    \] 
+    is discontinuous at \( x = 0 \) because \( \lim_{x \to 0} h(x) \) doesn't exist. Thus
+    it can't possibly equal \( h(p)\).
+\end{exmp}
+
+\begin{proof}
+   proof by Proposition 2 from 5.1. We end up with two sequences whos images converge to 
+   different values. This can't happen since every sequence image should converge to the 
+   same limit.
+\end{proof}
+
+
+\begin{theorem}
+    Let \( f \) and \( g \) be functions with domain \( E \) and let \( p \in E\) be 
+    an accumulation point of \( E \). If \( f \) and \( g \) are continuous at \( p \) 
+    then so are
+    \[
+        (f+g), (f*g), \text{ and  } \left(\frac{f}{g}\right) \  (\text{provided  }g(p) \ne 0).
+    \] 
+\end{theorem}
+
+\begin{proof}
+    \( \lim_{x \to p} (f + g)(x) =  \lim_{x \to p} f(x) + \lim_{x \to p} g(x) = f(p) + g(p) = (f + g)(p)\).
+\end{proof}
+
+The other two proofs are essentially identical. Here's another extension of a 
+result given in section 5.1. 
+
+ \begin{proposition}
+    \( f \) is a function with domain \( E \) and \( p \in E \) is an accumulation point
+    of \( E \). Then
+    \[
+        \lim_{x \to p} f(x) = f(p)
+    \] 
+    if and only if
+    \[
+        a_j \subset E \text{ and } \lim_{j \to \infty} a_j = p \implies \lim_{j \to \infty} f(a_j) = f(p).
+    \] 
+\end{proposition}
+We knew this was true for any limit point, \( \ell \), from section 5.1 proposition 2.
+This is just the special case where \( \ell = f(p) \).  
+\smallbreak
+Restating this fact in the following form will be useful in a second.
+
+\begin{corollary}
+    If \( f \) is continuous at \( p \) and \( \lim_{j \to \infty} a_j = p \), then
+     \[
+         \lim_{j \to \infty} f(a_j) = f\left(\lim_{j \to \infty} a_j\right) 
+    \] 
+\end{corollary}
+Cool, now we can apply it in the next proposition.  
+\pagebreak
+
+\begin{proposition}
+    Let \( g: D \to E \) and \( f: E \to F \) and suppose \( p \in D \) is an accumulation
+    point of \( D \). Assume \( g \) is continuous at \( p \) and \( f \) is continuous at
+    \( g(p) \). Then \( f \circ g \) is continuous at \( p \).
+\end{proposition}
+\begin{proof}
+    Let \( a_j \) be a sequence such that \( \lim_{j \to \infty} a_j = p \). Then 
+    \begin{align*}
+        \lim_{j \to \infty} f \circ g(a_j) &= \lim_{j \to \infty} f(g(a_j)) \\
+                                           &= f(\lim_{j \to \infty} g(a_j)) \\
+                                           &= f( g( \lim_{j \to \infty} a_j)) \\
+                                           &= f( g(p)) \\
+                                           &= f \circ g(p) 
+    \end{align*}
+\end{proof}
+
+This proof is probably best read from bottom to top. We need to be careful when 
+assuming \( f \) is continuous at \( \lim_{j \to \infty} g(a_j) \). 
+
+\begin{remark}
+    to-do. Discuss limits of composite functions. piecewise and constant function 
+    counterexample
+\end{remark}
+
+\begin{definition}[inverse image]
+    \( f \) is a function with domain \( E \) and \( W \) is any set of real numbers.
+    Then 
+    \[
+        f^{-1}(W) = \{ x \in E : f(x) \in W \}
+    \] 
+    is the \textbf{inverse image} of \( W \) under \( f \).
+\end{definition}
+
+\begin{theorem}
+    \( f \) with domain \( E \) is continuous \( \iff \) the inverse image of any open set
+    under \( f \) is the intersection of \( E \) with an open set.
+    If \( E \) is open, then \( f \) is continuous \( \iff \) the inverse image of every open
+    set under \( f \) is open.
+\end{theorem}
+
+\begin{proof}
+    to-do.
+\end{proof}
+
+\begin{corollary}
+    \( f \) with domain \( E \) is continuous \( \iff \) the inverse image of any closed set
+    under \( f \) is the intersection of \( E \) with a closed set.
+    If \( E \) is closed, then \( f \) is continuous \( \iff \) the inverse image of every closed
+    set under \( f \) is closed.
+\end{corollary}
+
+\begin{proof}
+    to-do.
+\end{proof}
+
+
+\end{document}

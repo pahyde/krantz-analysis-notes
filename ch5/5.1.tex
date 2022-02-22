@@ -1,0 +1,200 @@
+\documentclass{article}
+\usepackage[left=3cm,right=3cm,top=1.5cm,bottom=2cm]{geometry} % page settings
+\usepackage{amsmath} % provides many mathematical environments & tools
+\usepackage{amsthm}
+
+\setlength{\parindent}{0mm}
+
+\begin{document}
+
+\title{Review - Chapter 5: Limits and Continuity of Functions}
+\author{Parker Hyde}
+\date{\today}
+\maketitle
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{exmp}{Example}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+
+\section*{5.1 Limit of a Function}
+
+\begin{definition}[\( \epsilon - \delta \) limit definition]
+    Let \( f \) be a real-valued function with domain \( E \in R \) and fix
+    a point \( p \in R \) that is an accumulation point of \( E \) and let 
+    \( \ell \in R \). We say
+    \[
+        \lim_{x \to p} f(x) = \ell
+    \] 
+    if \( \forall \epsilon > 0 \ , \exists \delta > 0\) s.t. 
+    \[ x \in E \text{ and  } 0 < |x - p| < \delta \implies |f(x) - \ell| < \epsilon \].
+\end{definition}
+
+In other words, we can always make \( f(x) \) arbitrarily close to \( \ell \) by making
+\( x \) sufficiently close to \( p \). Also, the condition \( 0 < |x - p| \) says
+that we do not care about the value of \( f(x) \) 
+at \( x = p \). If we did, then the definition would require funtions that are 
+defined at the point \( p \) to satisfy \( f(p) = \ell \). Limits only address the
+behavior of a function at points near \( x = p \).
+
+\begin{exmp}
+    \[
+        \lim_{x \to 0} x  \cdot  sin \left(\frac{1}{x}\right) = 0
+    \] 
+    Using the fact that \( | x \cdot sin\left(\frac{1}{x}\right) | \le |x| \) we see that
+    our function \( f(x) \) will be within a given distance from \( 0 \) so long as 
+    \( x \) is within that distance from \( 0 \). This motivates the following proof.
+    \begin{proof}
+        Fix \( \epsilon > 0 \) and let \( \delta = \epsilon \). Then 
+        \begin{align*}
+            0 < |x - 0| < \delta \implies |f(x) - 0| = | x \cdot sin\left(\frac{1}{x}\right) | 
+            \le |x| \le \delta = \epsilon.
+        \end{align*}
+    \end{proof}
+\end{exmp}
+
+\begin{exmp}
+    Let \( E = R \). Then \( \lim_{x \to p} g(x) \) doesnt exist for any  \( p \in E \) 
+    where \( g(x) \) is defined
+    \[
+        g(x) = \begin{cases} 
+            1 & x \text{ is rational} \\
+            0 & x \text{ is irrational}
+        \end{cases}
+    \] 
+\end{exmp}
+
+\begin{proof}
+    Suppose for a contradiction that \( \lim_{x \to p} g(x) = \ell\) 
+    and let \( \epsilon = \frac{1}{2} >0 \). Then there is \( \delta \) such that 
+    \( 0 < |x-p| < \delta \implies |g(x) - \ell| < \epsilon = \frac{1}{2} \).
+    For any \( \delta > 0\) we have rational and irrational values of \( x \) 
+    satisfying \( 0 < |x - p| < \delta \). Thus \( |1 - \ell| < \frac{1}{2} \)
+    and \( |0-\ell| < \frac{1}{2}  \).
+    \[
+        \implies | 1 | = |1 - 0| = |1 - \ell + \ell - 0| \le |1 - \ell| + |\ell - 0| < \frac{1}{2} + \frac{1}{2} = 1.
+    \]
+    This is a contradiction so the limit does not exist. The limit does not exist!
+\end{proof}
+\pagebreak
+\begin{proposition}
+    \(f\) is a function definded on domain \( E \) and \( p \) is an accumulation point.\\
+    If \( \lim_{x \to p} f(x) = \ell \) and \( \lim_{x \to p} f(x) = m \), then  \( \ell = m \).
+\end{proposition}
+\begin{proof}
+    Let \( \epsilon > 0 \). Then there is 
+    \( \delta_1 \) such that  \( 0 < |x - p| < \delta_1 \implies |f(x) - \ell| <  \frac{\epsilon}{2}\)
+    and \( \delta_2 \) such that  \( 0 < |x - p| < \delta_2 \implies |f(x) - m| <  \frac{\epsilon}{2}\).
+    Let \( \delta = \text{min}(\delta_1, \delta_1) \). Then we have \( 0 < |x - p| < \delta \) such that
+    \begin{align*}
+        | \ell - m | &= | \ell - f(x) + f(x) - m| \\
+                     &\le | \ell - f(x) | + | f(x) - m | \\
+                     &< \frac{\epsilon}{2} + \frac{\epsilon}{2} \\
+                     &= \epsilon
+    \end{align*}
+    Hence we can make  \( \ell \) and \( m \) as close as we like. \( \ell = m \).
+\end{proof}
+
+This proof essentially zips together \( \ell \) and \( m \) using \( f(x) \) as \( x \to p \).
+\( \ell \) and \( m \) both get arbitrarily close to the same value \( f(x) \) as \( x \to p \).
+
+\begin{corollary}
+    \( \lim_{x \to p} f(x) = \lim_{h \to 0} f(p + h) \) if either limit is defined.
+\end{corollary}
+
+\begin{theorem}[Elementary Properties of Limits]
+    Let \( f \) and \( g\) be functions defined on domain \( E \) and let \( p \) be
+    and accumulation point of \( E \). Assume that
+    \begin{align*}
+        &i) \lim_{x \to p} f(x) = \ell \\
+        &ii) \lim_{x \to p} g(x) = m
+    \end{align*}
+    Then
+    \begin{align*}
+        &a) \lim_{x \to p} (f + g)(x) = \ell + m \\
+        &b) \lim_{x \to p} (f \cdot g)(x) = \ell \cdot m \\
+        &c) \lim_{x \to p} (f / g)(x) = \ell / m \ \ \ \text{ provided that } m \ne 0
+    \end{align*}
+\end{theorem}
+\begin{proof}
+    to-do
+\end{proof}
+
+We can pretty quickly verify that \( \forall p \in R \) \\
+1) \( \lim_{x \to p} x = p\) \\
+2) \( \lim_{x \to p} \alpha = \alpha \) 
+\medbreak
+Using the elementary properties above this gives the following
+for any polynomial \( F \) and any rational function \( R \).
+\begin{align}
+    1) \lim_{x \to p} F(x) = F(p) \\
+    2) \lim_{x \to p} R(x) = R(p) 
+\end{align}
+
+
+\begin{exmp}
+    \( \lim_{x \to 0} sin(x) = 0 \),  \( \lim_{x \to 0} cos(x) = 1 \).
+    \begin{proof}
+        For small values of \( x > 0 \), \( sin(x) < x \). On the other hand, 
+        small values of \( x < 0 \) give \( sin(x) > -x  \). In either case \( |sin(x)| < |x| \).
+        Hence for \( \epsilon > 0 \), we set \( \delta = \epsilon \) so that
+        \[
+        0 < |x - 0| < \delta \implies |sin(x) - 0| < |x| < \delta = \epsilon.
+        \] 
+        It's reasonable to then conclude 
+        \( \lim_{x \to 0} cos(x) = 1 \)
+        because \( cos(x) = \sqrt{1 - sin^2(x)} \) near \( x = 0 \).
+        
+    \end{proof}
+\end{exmp}
+
+\begin{remark}
+    We didn't really show that radicals preserve limits. I should probably prove 
+    this to myself later.
+\end{remark}
+
+This is all we need to find \( sin \) and \( cos \) limits at any point \( p \).  
+
+\begin{align*}
+    \lim_{x \to p} sin(x) 
+        &= \lim_{h \to 0} sin(p + h) \\
+        &= lim_{h \to 0} sin(P)cos(h) + sin(h)cos(P) \\
+        &= sin(p) \cdot 1 + 0 \cdot cos(P) \\
+        &= sin(p)
+\end{align*}
+
+For completeness, we should also do
+
+
+\begin{align*}
+    \lim_{x \to p} cos(x) 
+        &= \lim_{h \to 0} cos(p + h) \\
+        &= lim_{h \to 0} cos(P)cos(h) - sin(h)sin(P) \\
+        &= cos(p) \cdot 1 - 0 \cdot sin(P) \\
+        &= cos(p)
+\end{align*}
+
+\begin{proposition}
+    Let \( f \) be a function with domain \( E \) and \( p \) be an accumulation
+    point of \( E \). Then
+    \[
+        \lim_{x \to p} f(x) = \ell
+    \] 
+    if and only if 
+    \[
+        {a_j} \subset E \setminus {p} \text{ and } \lim_{j \to \infty} a_j = p \implies
+        \lim_{j \to \infty} f(a_j) = \ell.
+    \] 
+\end{proposition}
+
+In other words every sequence in \( E \setminus {p} \) converging to \( p \) must have 
+its image converging to \( \ell \).
+\begin{proof}
+   to-do 
+\end{proof}
+
+\end{document}
